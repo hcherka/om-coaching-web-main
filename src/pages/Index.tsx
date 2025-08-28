@@ -25,7 +25,7 @@ const Home = () => {
                         <Link to="/contact" className="bg-white text-coaching-600 hover:bg-coaching-50 rounded-md px-6 py-3 font-medium transition-colors duration-300">
                             Prendre rendez-vous
                         </Link>
-                        <a href={`${import.meta.env.BASE_URL}#ServiceOverview`}  className="bg-transparent border border-white text-white hover:bg-white/10 rounded-md px-6 py-3 font-medium transition-colors duration-300">
+                        <a href="#ServiceOverview" className="bg-transparent border border-white text-white hover:bg-white/10 rounded-md px-6 py-3 font-medium transition-colors duration-300">
                             Découvrir nos services
                         </a>
                     </div>
