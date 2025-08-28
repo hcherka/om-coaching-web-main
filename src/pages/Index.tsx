@@ -7,6 +7,13 @@ import SectionTitle from "@/components/SectionTitle";
 import CTA from "@/components/CTA";
 import { Award, Briefcase, HeartHandshake, LightbulbIcon, Target, UserPlus } from "lucide-react";
 
+const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+    }
+};
+
 const Home = () => {
   return (
     <Layout>
@@ -25,9 +32,12 @@ const Home = () => {
                         <Link to="/contact" className="bg-white text-coaching-600 hover:bg-coaching-50 rounded-md px-6 py-3 font-medium transition-colors duration-300">
                             Prendre rendez-vous
                         </Link>
-                        <a href="#ServiceOverview" className="bg-transparent border border-white text-white hover:bg-white/10 rounded-md px-6 py-3 font-medium transition-colors duration-300">
+                        <button
+                            onClick={() => scrollToSection("ServiceOverview")}
+                            className="bg-transparent border border-white text-white hover:bg-white/10 rounded-md px-6 py-3 font-medium transition-colors duration-300"
+                        >
                             Découvrir nos services
-                        </a>
+                        </button>
                     </div>
                 </div>
                 <div className="flex-1 w-full mt-8 lg:mt-0 lg:flex justify-end">
