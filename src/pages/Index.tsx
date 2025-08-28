@@ -32,7 +32,7 @@ const Home = () => {
                 </div>
                 <div className="flex-1 w-full mt-8 lg:mt-0 lg:flex justify-end">
                     <img
-                        src="/imgHeroicon.png"
+                        src={`${import.meta.env.BASE_URL}imgHeroicon.png`}
                         alt="Coaching illustration"
                         className="w-full h-full rounded-lg  object-cover"
                     />

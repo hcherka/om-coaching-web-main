@@ -28,7 +28,7 @@ const Navbar = () => {
           <div className="flex items-center">
             <Link to="/" className="flex-shrink-0 flex items-center" onClick={closeMenu}>
                  <span className="text-2xl font-serif font-bold text-coaching-600 flex items-center">
-                  <img src="/faviconNoText.png" alt="Logo" className="h-10 w-12 " />
+                  <img src={`${import.meta.env.BASE_URL}faviconNoText.png`} alt="Logo" className="h-10 w-12 " />
                 </span>
                 <span className="text-2xl font-serif text-gray-700 pt-2">Coaching</span>
             </Link>
