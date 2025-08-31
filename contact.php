@@ -34,8 +34,8 @@ if (!$name || !$email || !$subject || !$message) {
 }
 
 // ⚠️ adresse de ton domaine IONOS
-$from = "contact@oncoaching.fr";
-$to   = "assiabillale@gmail.com";
+$from = $email;
+$to   = "contact@oncoaching.fr";
 
 $headers  = "From: $from\r\n";
 $headers .= "Reply-To: $email\r\n";
