@@ -25,15 +25,23 @@ if (!$name || !$email || !$subject || !$message) {
 }
 
 $to = "assiabillale@gmail.com";
-$headers = "From: $email\r\nReply-To: $email\r\nContent-Type: text/plain; charset=UTF-8\r\n";
+$headers = "From: $email\r\n";
+$headers .= "Reply-To: $email\r\n";
+$headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
+
 $mailSubject = "[Contact OM Coaching] $subject - Service: $service";
 
-$mailBody = "Nom : $name\n";
+$mailBody  = "Nom : $name\n";
 $mailBody .= "Email : $email\n";
 $mailBody .= "Téléphone : $phone\n";
 $mailBody .= "Service : $service\n\n";
 $mailBody .= "Message :\n$message\n";
 
-mail($to, $mailSubject, $message, $headers);
-
+// >>>>> CORRECTION : envoi du corps complet
+if (mail($to, $mailSubject, $mailBody, $headers)) {
+    echo json_encode(['message' => 'Email envoyé avec succès']);
+} else {
+    http_response_code(500);
+    echo json_encode(['message' => "Erreur lors de l'envoi de l'email"]);
+}
 ?>
