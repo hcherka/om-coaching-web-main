@@ -1,4 +1,5 @@
 <?php
+// Activer l'affichage des erreurs PHP (à retirer une fois corrigé)
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
@@ -33,9 +34,9 @@ if (!$name || !$email || !$subject || !$message) {
     exit;
 }
 
-// ⚠️ adresse de ton domaine IONOS
+// ⚠️ Adresse email de destination (vérifier qu'elle est correcte!)
 $from = $email;
-$to   = "assiabillale@gmail.com";
+$to   = "contact@oncoaching.fr";
 
 $headers  = "From: $from\r\n";
 $headers .= "Reply-To: $email\r\n";
@@ -49,9 +50,11 @@ $mailBody .= "Téléphone : $phone\n";
 $mailBody .= "Service : $service\n\n";
 $mailBody .= "Message :\n$message\n";
 
+// Tentative d'envoi du mail
 if (mail($to, $mailSubject, $mailBody, $headers)) {
     echo json_encode(["message" => "Email envoyé avec succès"]);
 } else {
     http_response_code(500);
     echo json_encode(["message" => "Erreur lors de l'envoi de l'email"]);
 }
+?>
