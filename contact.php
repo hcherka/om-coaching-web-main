@@ -1,43 +1,35 @@
 <?php
-// Vérification de l'envoi des données POST
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Nettoyage et validation sommaire des champs
-    $name = strip_tags(trim($_POST['name'] ?? ''));
-    $email = filter_var(trim($_POST['email'] ?? ''), FILTER_VALIDATE_EMAIL);
-    $phone = strip_tags(trim($_POST['phone'] ?? ''));
-    $subject = strip_tags(trim($_POST['subject'] ?? ''));
-    $message = strip_tags(trim($_POST['message'] ?? ''));
-    $service = strip_tags(trim($_POST['service'] ?? ''));
+// Lire les données JSON POST
+$data = json_decode(file_get_contents('php://input'), true);
 
-    if (!$name || !$email || !$subject || !$message) {
-        http_response_code(400);
-        echo json_encode(['message' => 'Merci de remplir tous les champs obligatoires']);
-        exit;
-    }
+$name = htmlspecialchars(trim($data['name'] ?? ''));
+$email = filter_var(trim($data['email'] ?? ''), FILTER_VALIDATE_EMAIL);
+$phone = htmlspecialchars(trim($data['phone'] ?? ''));
+$subject = htmlspecialchars(trim($data['subject'] ?? ''));
+$message = htmlspecialchars(trim($data['message'] ?? ''));
+$service = htmlspecialchars(trim($data['service'] ?? ''));
 
-    // Préparez le mail
-    $to = 'contact@oncoaching.fr'; // Votre adresse email
-    $headers = "From: $email\r\n";
-    $headers .= "Reply-To: $email\r\n";
-    $headers .= "Content-Type: text/plain; charset=utf-8\r\n";
+if (!$name || !$email || !$subject || !$message) {
+    http_response_code(400);
+    echo json_encode(['message' => "Champs requis manquants"]);
+    exit;
+}
 
-    $email_subject = "Nouveau message de $name : $subject";
-    $email_body = "Nom: $name\n";
-    $email_body .= "Email: $email\n";
-    $email_body .= "Téléphone: $phone\n";
-    $email_body .= "Service: $service\n";
-    $email_body .= "Message:\n$message\n";
+$to = "contact@oncoaching.fr"; // Remplacez par votre email réel
+$headers = "From: $email\r\nReply-To: $email\r\nContent-Type: text/plain; charset=UTF-8\r\n";
+$mailSubject = "[Contact OM Coaching] $subject - Service: $service";
 
-    // Envoi de l'email
-    if (mail($to, $email_subject, $email_body, $headers)) {
-        http_response_code(200);
-        echo json_encode(['message' => 'Message envoyé avec succès']);
-    } else {
-        http_response_code(500);
-        echo json_encode(['message' => 'Erreur lors de l\'envoi du message']);
-    }
+$mailBody = "Nom : $name\n";
+$mailBody .= "Email : $email\n";
+$mailBody .= "Téléphone : $phone\n";
+$mailBody .= "Service : $service\n\n";
+$mailBody .= "Message :\n$message\n";
+
+if (mail($to, $mailSubject, $mailBody, $headers)) {
+    http_response_code(200);
+    echo json_encode(['message' => "Message envoyé avec succès"]);
 } else {
-    http_response_code(405);
-    echo json_encode(['message' => 'Méthode non autorisée']);
+    http_response_code(500);
+    echo json_encode(['message' => "Erreur lors de l'envoi du message"]);
 }
 ?>
