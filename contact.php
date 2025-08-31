@@ -34,13 +34,5 @@ $mailBody .= "Téléphone : $phone\n";
 $mailBody .= "Service : $service\n\n";
 $mailBody .= "Message :\n$message\n";
 
-// Test d'envoi de mail
-if (mail($to, $mailSubject, $mailBody, $headers)) {
-    http_response_code(200);
-    echo json_encode(['message' => "Message envoyé avec succès"]);
-} else {
-    error_log("Erreur envoi mail dans contact.php");
-    http_response_code(500);
-    echo json_encode(['message' => "Erreur lors de l'envoi du message"]);
-}
+mail($to, $mailSubject, $message, $headers);
 ?>
