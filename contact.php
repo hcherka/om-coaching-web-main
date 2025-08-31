@@ -24,7 +24,7 @@ if (!$name || !$email || !$subject || !$message) {
     exit;
 }
 
-$to = "contact@oncoaching.fr";
+$to = "assiabillale@gmail.com";
 $headers = "From: $email\r\nReply-To: $email\r\nContent-Type: text/plain; charset=UTF-8\r\n";
 $mailSubject = "[Contact OM Coaching] $subject - Service: $service";
 
@@ -35,4 +35,5 @@ $mailBody .= "Service : $service\n\n";
 $mailBody .= "Message :\n$message\n";
 
 mail($to, $mailSubject, $message, $headers);
+
 ?>
